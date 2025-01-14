@@ -6,14 +6,16 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "experimentalDecorators": false,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "incremental": true,
     "isolatedModules": true,
-    "lib": ["es2022"],
+    "lib": [
+      "es2022"
+    ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmitOnError": true,
@@ -29,6 +31,25 @@
     "sourceMap": false,
     "strict": true,
     "target": "es2022",
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@Application/*": [
+        "apps/back-end/src/Application/*"
+      ],
+      "@Domain/*": [
+        "apps/back-end/src/Domain/*"
+      ],
+      "@Infrastructure/*": [
+        "apps/back-end/src/Infrastructure/*"
+      ],
+      "@Presentation/*": [
+        "apps/back-end/src/Presentation/*"
+      ],
+      "@be/*": [
+        "apps/back-end/src/*"
+      ],
+    }
   }
 }

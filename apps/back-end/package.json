@@ -1,0 +1,87 @@
+{
+  "name": "@roompal/back-end",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "back-end",
+    "projectType": "application",
+    "sourceRoot": "apps/back-end/src",
+    "targets": {
+      "build": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "webpack-cli build",
+          "args": [
+            "node-env=production"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "args": [
+              "node-env=development"
+            ]
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "back-end:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "back-end:build:development"
+          },
+          "production": {
+            "buildTarget": "back-end:build:production"
+          }
+        }
+      },
+      "test": {
+        "options": {
+          "passWithNoTests": true
+        }
+      },
+      "lint": {
+        "executor": "@nx/eslint:lint",
+        "options": {
+          "lintFilePatterns": [
+            "apps/back-end/**/*.ts"
+          ]
+        }
+      },
+      "typeorm": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "typeorm-ts-node-commonjs -d src/Infrastructure/database/data-source/index.ts",
+          "args": [
+            "node-env=local"
+          ]
+        }
+      },
+      "db:generate": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node scripts/create-migration"
+        }
+      },
+      "db:apply": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm run typeorm migration:run"
+        }
+      },
+      "db:revert": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npm run typeorm migration:revert"
+        }
+      }
+    }
+  }
+}
